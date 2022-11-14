@@ -106,17 +106,47 @@ order by avg(rating)
 --QUERY CON JOIN
 
 --1- Selezionare i dati di tutti giocatori che hanno scritto almeno una recensione, mostrandoli una sola volta (996)
-
+Select distinct players.id, players.name, players.lastname
+from reviews
+INNER JOIN players 
+on player_id = players.id;
 
 --2- Sezionare tutti i videogame dei tornei tenuti nel 2016, mostrandoli una sola volta (226)
+select distinct videogames.id, videogames.name, tournaments.year
+from tournament_videogame
+inner join tournaments
+on tournaments.id = tournament_id
+inner join videogames
+on videogames.id = videogame_id
+where tournaments.year = 2016
+
+
 
 --3- Mostrare le categorie di ogni videogioco (1718)
+select categories.name, videogame_id
+from category_videogame
+inner join categories
+on categories.id = category_id
 
 --4- Selezionare i dati di tutte le software house che hanno rilasciato almeno un gioco dopo il 2020, mostrandoli una sola volta (6)
+select distinct software_houses.name, software_houses.city
+from videogames
+inner join software_houses
+on software_house_id = software_houses.id
+where videogames.release_date like '2020%'
 
 --5- Selezionare i premi ricevuti da ogni software house per i videogiochi che ha prodotto (55)
+select awards.name
+from award_videogame
+inner join awards
+on awards.id = award_id
+inner join videogames 
+on videogames.id = videogame_id
+inner join software_houses
+on software_houses.id = software_house_id
 
 --6- Selezionare categorie e classificazioni PEGI dei videogiochi che hanno ricevuto recensioni da 4 e 5 stelle, mostrandole una sola volta (3363)
+
 
 --7- Selezionare quali giochi erano presenti nei tornei nei quali hanno partecipato i giocatori il cui nome inizia per 'S' (474)
 
